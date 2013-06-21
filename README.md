@@ -6,9 +6,9 @@ Game in sfml 2 and tmx for map tiles
 
 for compile
 
- cd src/
- g++  main.cpp -o game  -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -ltinyxml -lz -ltmxparser
- ./game
+cd src/
+g++  main.cpp -o game  -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -ltinyxml -lz -ltmxparser
+./game
 
 
 
@@ -19,5 +19,5 @@ tmx parser 		  https://code.google.com/p/tmx-parser/
 
 
 libraries for Archlinux
-  pacman -S sfml tiled-qt
-  yaourt -S tmx-parser-svn 
+pacman -S sfml tiled-qt
+yaourt -S tmx-parser-svn 
