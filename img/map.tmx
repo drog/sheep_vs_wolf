@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Capa de patrones 4" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJztmEEKwCAMBPP/X/jT0puHFtzaJOuyA94kZhJQyYiIcdh6YmXPV3ZjInllelRycu4z9uDCHlzYIx8kN1YP9E1j9bhR6AeKPbjI+uNW18ce7/EUPLqwBxf26I1ddVb1vaXUD5W5T7ZHRY1UPZCZKnpGJt0z57/m1BelI2wt
+   eJztmEEKwCAMBPP/X/jTXnuwaFI2xjADucnGEUTJMLNxWc3YWRPlb6ZnX0qPTG7e+xs8aoFHLfDQ4n0L8NDSxcMLHrVQ/XGzzweP77wOHqfAoxZ4rHMz7zse69xsjy5zH7UHPeI9PDPVaA8Fp2fOkZrxAIIFdPs=
   </data>
  </layer>
  <layer name="Capa de Patrones 1" width="50" height="30">
@@ -15,7 +15,7 @@
  </layer>
  <layer name="Capa de patrones 2" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJztkUEOAUEQRVsIG25AOIGNHfY2s8PeAXAo3AK3wHm8SbqXMmK640+nfvJSld5Uvepuy7lxBvQgh+TgMc3kP1bmIRXz0Ip5aMU8tGIeWjEPrZiHVsxDKwoec+YvYFljDwWPNfM3sG24x575Bzg23CNGcvHYeY8T/Rku/17ox8y8x5X+BveEs1LeqsBhAg/6J7wSzAhJdavyL0ra9B1XXesm9q3C/oVnyNvIVddvfT/VPgwiEvYPPm90fCMu
+   eJztkTEOglAMhh/R4KI30OgJXNyE3YUN2T2AehJPod5CvQV4Hn+S90bEQBtL0y/58xoG2q+NI+eWCjJBNKDBY63kHjvzEIV5yMI8ZGEesjAPWZiHLLg8LvS//IrdQxbmQccW/RMk7TGHBI8c/fdIMXCPI/qfkPPAPSjQ4nHwHlfUN+T+74E6svEeD9RP5MXYi3NXGRxWSIm6Qt4MPQJcu6pvUWeEeuza375Q7yrMn/nM8W3h2t9ffZveKTIjTJg/+HwAQiYjug==
   </data>
  </layer>
  <layer name="Capa de patrones 3" width="50" height="30">

@@ -20,7 +20,7 @@ int main()
 
     Map *map = new Map;
     map->load();
-    map->setGrass(); 
+    map->setInitialGrass(); 
 
     const int tilesize = map->GetTilesize(); /* map tilesize */
 
@@ -54,6 +54,7 @@ int main()
     int live_sheeps = 0;
     int live_wolfs = 0;
     sf::Vector2i pos_sheep;
+
     while(Window.isOpen()) /* game loop */
     {
         //time = clock.restart();
@@ -86,16 +87,17 @@ int main()
         {
             Window.clear();            
             Window.draw( map->getBackground() ); /* draw background */
-        
+            map->regenGrass();
+            map->printMap(&Window);
             live_sheeps = 0;  
             live_wolfs = 0;
-            for (i=0; i<NUM_SHEEP; ++i){
-                
-                if( map->isGrass( pos_sheep.x, pos_sheep.y ) )
+            for (i=0; i<NUM_SHEEP; ++i)
+            {
+                pos_sheep = sheep[i].getPosition();
+                if( map->isGrass( pos_sheep.x/tilesize, pos_sheep.y/tilesize ) )
                 {
-                    pos_sheep = sheep[i].getPosition();
                     sheep[i].eat();
-                    map->setGrass( pos_sheep.x, pos_sheep.y ); 
+                    map->setGrass( pos_sheep.x/tilesize, pos_sheep.y/tilesize ); 
                 }
                 else
                 {
@@ -123,7 +125,7 @@ int main()
 
             textWolfs.setString("Wolfs : "+ utils->int2Str(live_wolfs) );
             textSheeps.setString("Sheeps : "+ utils->int2Str(live_sheeps) ); 
-           
+            
             Window.draw(textTitle);
             Window.draw(textSheeps);
             Window.draw(textWolfs);

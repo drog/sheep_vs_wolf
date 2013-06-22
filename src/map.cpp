@@ -33,18 +33,16 @@ Map::~Map()
 void Map::load()
 {
 
-	//carga imagen del mapa especificado en el mapa.xml
-	//if( !Image.loadFromFile( tileset->GetImage()->GetSource().c_str() ) )
-	if( !Image.loadFromFile( "../img/f10942.png" ) )
-	{
-		std::cout << "Error to load Image from TileSet \n" <<std::endl;
-	}
-	
 	//limite_derecho = (layer->GetWidth() - 1) * tilesize - SCREEN_WIDTH/4;
 	//limite_inferior = (layer->GetHeight() - 1) * tilesize - SCREEN_HEIGHT/4;
 
 	background_texture.loadFromFile("../img/map.png");
 	background_sprite.setTexture(background_texture);
+
+	tiles_texture.loadFromFile("../img/f10942.png");
+	tiles_sprite.setTexture(tiles_texture);
+	tiles_sprite.setTextureRect( sf::IntRect(16, 112, 16, 16) ); /* intRect for earth */
+
 }
 
 sf::Sprite Map::getBackground() const 
@@ -53,14 +51,63 @@ sf::Sprite Map::getBackground() const
 	
 }
 
-void Map::setGrass()
+void Map::setInitialGrass()
 {
 	int j,i;
-	for(j=0; j<= SCREEN_HEIGHT / tilesize; ++j)
-		for (i=0; i<= SCREEN_WIDTH / tilesize; ++i)
-			this->grass[j][i]=true;
+	for(i=0; i < SCREEN_WIDTH / tilesize; ++i)
+	{	
+		for (j=0; j < SCREEN_HEIGHT / tilesize; ++j)
+		{	
+			this->grass[i][j]=true;
+			this->grass_time[i][j]=0;
+		}
+	}		
 		
 }
+
+void Map::regenGrass()
+{
+	int j,i;
+	for(i=0; i < SCREEN_WIDTH / tilesize; ++i)
+	{
+		for (j=0; j < SCREEN_HEIGHT / tilesize; ++j)
+		{
+			if(!this->grass[i][j]){
+				this->grass_time[i][j]++;	
+			}
+			if(this->grass_time[i][j]==40)
+			{ 
+				/* after 40 times regen grass */
+				this->grass[i][j]=true;
+				this->grass_time[i][j]=0;
+			}
+
+		}
+	}
+}
+
+void Map::printMap(sf::RenderWindow *Window)
+{
+	/*
+		print parts whitout grass, that were eaten by the sheeps
+	*/
+	int j,i;
+	for(i=0; i < SCREEN_WIDTH / tilesize; ++i)
+	{
+		for (j=0; j < SCREEN_HEIGHT / tilesize; ++j)
+		{
+			
+			if(!this->grass[i][j])
+			{
+				tiles_sprite.setPosition(i*tilesize, j*tilesize);
+				Window->draw(tiles_sprite);
+			}
+
+		}
+	}
+		
+}
+
 
 /*
 void Map::imprimir(sf::RenderWindow &window)

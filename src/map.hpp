@@ -15,8 +15,9 @@ class Map
 		void load(void);
 		sf::Sprite getBackground(void) const ;
 		//void imprimir(sf::RenderWindow &window);
-		void setGrass();
-
+		void setInitialGrass();
+		void regenGrass();
+		void printMap(sf::RenderWindow *Window);
 		inline bool isSolid( int x, int y )
 		{ 
 			if(map->GetLayer(0)->GetTileId(x, y) == tileSolid )
@@ -43,9 +44,10 @@ class Map
     	Tmx::Map *map;
 		const Tmx::Tileset *tileset;
 		const Tmx::Layer *layer;
-		sf::Image Image;
 		sf::Texture background_texture;
 		sf::Sprite background_sprite;
+		sf::Texture tiles_texture;
+		sf::Sprite tiles_sprite;
 		int tilesize;
 		//int tileW;
 		//int	tileId;
@@ -53,6 +55,7 @@ class Map
 		//int limite_inferior;
 		static const unsigned int  tileSolid = 160; // 160 is id of tile solid
 		bool grass[ SCREEN_WIDTH/16 ][ SCREEN_HEIGHT/16 ];
+		int grass_time[ SCREEN_WIDTH/16 ][ SCREEN_HEIGHT/16 ];
 
 };
 #endif
