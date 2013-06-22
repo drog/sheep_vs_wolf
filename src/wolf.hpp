@@ -12,7 +12,7 @@ class Wolf {
 		sf::Sprite getSprite();  
 		void move(int mov);
 		void check_collisions();
-
+		inline bool getLife(){ return this-life; };
 	private:	
 		sf::Texture texture;
 		sf::Sprite sprite;

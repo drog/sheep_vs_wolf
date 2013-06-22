@@ -11,7 +11,6 @@ Sheep::Sheep()
     this->life = true;
     this->source.x=1;
     this->source.y=1;
-
 }
 
 Sheep::~Sheep()
@@ -20,8 +19,16 @@ Sheep::~Sheep()
     //delete sprite;
 }
 
-sf::Sprite Sheep::getSprite() {
+sf::Sprite Sheep::getSprite() 
+{
     return this->sprite;
+}
+
+sf::Vector2i Sheep::getPosition()
+{
+	this->position.x = this->sprite.getPosition().x;
+	this->position.y = this->sprite.getPosition().y;
+	return this->position;
 }
 
 
@@ -57,8 +64,8 @@ void Sheep::move ( int mov ){
 void Sheep::check_collisions( const int tilesize , int mov , Map *map){
 	const int texture_size_x = texture.getSize().x/2; /*  image.x / 2 => contains sheeps and wolf*/
 
-	int pos_x = this->sprite.getPosition().x;
-	int pos_y = this->sprite.getPosition().y;
+	this->position.x = this->sprite.getPosition().x;
+	this->position.y = this->sprite.getPosition().y;
 
 /*	
 			____________	
@@ -69,10 +76,10 @@ void Sheep::check_collisions( const int tilesize , int mov , Map *map){
  (x1,y2)>	-------------	<(x2,y2)
 */
 
-	int x1 = (pos_x + 5) / tilesize;  /* posx + 5 for better collision   */
-	int y1 = (pos_y + 5) / tilesize;
-	int x2 = (pos_x + 32 - 5) / tilesize;
-	int y2 = (pos_y + 32 - 5) / tilesize;
+	int x1 = (this->position.x + 5) / tilesize;  /* posx + 5 for better collision   */
+	int y1 = (this->position.y + 5) / tilesize;
+	int x2 = (this->position.x + 32 - 5) / tilesize;
+	int y2 = (this->position.y + 32 - 5) / tilesize;
 
 	/*  map->isSolid(int x, int y) return true if the position is solid  */
 	if( map->isSolid( x1 , y1) || map->isSolid( x2 , y2) || map->isSolid( x2 , y1) || map->isSolid( x1 , y2) )
