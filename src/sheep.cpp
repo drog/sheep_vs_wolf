@@ -31,7 +31,6 @@ sf::Vector2i Sheep::getPosition()
 	return this->position;
 }
 
-
 void Sheep::move ( int mov ){
 	const int texture_size_x = texture.getSize().x/2; /*  image.x / 2 => contains sheeps and wolf*/
 

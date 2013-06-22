@@ -8,6 +8,7 @@
 #include "wolf.cpp"
 #include "map.cpp"
 #include "utils.hpp"
+
 int main()
 {
     srand ( time(NULL) );
@@ -23,7 +24,7 @@ int main()
     Sheep *sheep = new Sheep[NUM_SHEEP]; /* num_sheep are in config.hpp*/
     Wolf *wolf = new Wolf[NUM_WOLF]; /* num_wolf are in config.hpp*/
     Utils *utils;
-    //bool game_pause = false;
+    bool game_pause = false;
 
     sf::Font font;
     if (!font.loadFromFile("../fonts/scoreboard.ttf"))
@@ -67,7 +68,8 @@ int main()
                         }
                         if(Event.key.code == sf::Keyboard::Space)
                         {
-                            //game_pause = true;  
+                            /* if(game_pause==true){ game_pause=false; }else { game_pause=true }    */
+                            game_pause = (game_pause) ? false : true;
                             break; 
                         }
                 default:
@@ -75,39 +77,46 @@ int main()
             } /* switch(Event.type) */
         } /* while(Window.pollEvent(Event)) */
 
-        Window.clear();            
-        Window.draw( map->getBackground() ); /* draw background */
+        if(!game_pause)
+        {
+            Window.clear();            
+            Window.draw( map->getBackground() ); /* draw background */
         
-        live_sheeps = 0;  
-        live_wolfs = 0;
-        for (int i=0; i<NUM_SHEEP; ++i){
-            mov=rand()%4; 
-            sheep[i].move( mov ); /* create a random number for movement of sheeps */
-            sheep[i].check_collisions( tilesize, mov , map); 
-            
-            if(sheep[i].getLife())  
-                live_sheeps++;   /* counter of sheeps */
+            live_sheeps = 0;  
+            live_wolfs = 0;
+            for (int i=0; i<NUM_SHEEP; ++i){
+                mov=rand()%4; 
+                sheep[i].move( mov ); /* create a random number for movement of sheeps */
+                sheep[i].check_collisions( tilesize, mov , map ); 
+                
+                if(sheep[i].getLife())  
+                    live_sheeps++;   /* counter of sheeps */
 
-            Window.draw( sheep[i].getSprite() ); /* draw sheeps */
-        }
+                Window.draw( sheep[i].getSprite() ); /* draw sheeps */
+            }
 
-        for (int i=0; i<NUM_WOLF; ++i){
-            wolf[i].move( rand()%4 ); /* create a random number for movement of wolfs */
-            wolf[i].check_collisions(); 
+            for (int i=0; i<NUM_WOLF; ++i){
+                mov=rand()%4;
+                wolf[i].move( mov ); /* create a random number for movement of wolfs */
+                wolf[i].check_collisions( tilesize, mov , map ); 
 
-            if(wolf[i].getLife())  
-                live_wolfs++;   /* counter of wolfs */
+                if(wolf[i].getLife())  
+                    live_wolfs++;   /* counter of wolfs */
 
-            Window.draw( wolf[i].getSprite() ); /* draw wolfs */
-        }
+                Window.draw( wolf[i].getSprite() ); /* draw wolfs */
+            }
 
-        textWolfs.setString("Wolfs : "+ utils->int2Str(live_wolfs) );
-        textSheeps.setString("Sheeps : "+ utils->int2Str(live_sheeps) ); 
-
-        Window.draw(textTitle);
-        Window.draw(textSheeps);
-        Window.draw(textWolfs);
+            textWolfs.setString("Wolfs : "+ utils->int2Str(live_wolfs) );
+            textSheeps.setString("Sheeps : "+ utils->int2Str(live_sheeps) ); 
+           
+            Window.draw(textTitle);
+            Window.draw(textSheeps);
+            Window.draw(textWolfs);
+        
+        } /* if(!game_pause)  */
+        
         Window.display();
         
     } /* game loop */
+        
 } /* main */

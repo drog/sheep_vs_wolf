@@ -6,7 +6,6 @@
 #include "config.hpp"
 #include "map.hpp"
 
-
 class Sheep{
 	public:
 		Sheep();
