@@ -2,7 +2,7 @@
 
 Wolf::Wolf()
 {
-	if( !this->texture.loadFromFile("../img/animals.png") )
+    if( !this->texture.loadFromFile("../img/animals.png") )
         std::cout <<  "could not locate the specified file"  << std::endl; 
     else
         this->sprite.setTexture(this->texture);
@@ -11,6 +11,7 @@ Wolf::Wolf()
     this->life = true;
     this->source.x=4;
     this->source.y=1;
+    this->hunger=100;
 }
 
 Wolf::~Wolf()
@@ -67,12 +68,12 @@ void Wolf::check_collisions( const int tilesize , int mov , Map *map){
 	this->position.y = this->sprite.getPosition().y;
 
 /*	
-			____________	
- (x1,y1)>	|			|	<(x2,y1)
-			|	image	|
-			|			|
-			|			|
- (x1,y2)>	-------------	<(x2,y2)
+            ____________	
+ (x1,y1)>   |           |   <(x2,y1)
+            |   image   |
+            |           |
+            |           |
+ (x1,y2)>   -------------   <(x2,y2)
 */
 
 	int x1 = (this->position.x + 5) / tilesize;  /* posx + 5 for better collision   */

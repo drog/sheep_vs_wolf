@@ -7,9 +7,9 @@ Game in sfml 2 and tmx for map tiles
 for compile
 
 cd src/
-g++  main.cpp -o game  -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -ltinyxml -lz -ltmxparser
+make 
+make clean
 ./game
-
 
 
 libraries used

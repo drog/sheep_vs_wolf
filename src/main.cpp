@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>  
 #include <time.h>
 #include "config.hpp"
-#include "sheep.cpp"
-#include "wolf.cpp"
-#include "map.cpp"
+#include "sheep.hpp"
+#include "wolf.hpp"
+#include "map.hpp"
 #include "utils.hpp"
 
 int main()
@@ -16,9 +16,12 @@ int main()
     /* options of screen are in config.hpp */
     sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, DEPTH),  "Wolf v/s Sheep" ); 
     Window.setFramerateLimit(18); 
+    Window.setPosition(  sf::Vector2i(100,100)); /* position of the window */
 
     Map *map = new Map;
     map->load();
+    map->setGrass(); 
+
     const int tilesize = map->GetTilesize(); /* map tilesize */
 
     Sheep *sheep = new Sheep[NUM_SHEEP]; /* num_sheep are in config.hpp*/
@@ -46,9 +49,11 @@ int main()
     textWolfs.setStyle(sf::Text::Bold);
     textWolfs.setPosition(10,510);
 
+    int i;
     int mov;
     int live_sheeps = 0;
     int live_wolfs = 0;
+    sf::Vector2i pos_sheep;
     while(Window.isOpen()) /* game loop */
     {
         //time = clock.restart();
@@ -84,18 +89,28 @@ int main()
         
             live_sheeps = 0;  
             live_wolfs = 0;
-            for (int i=0; i<NUM_SHEEP; ++i){
-                mov=rand()%4; 
-                sheep[i].move( mov ); /* create a random number for movement of sheeps */
-                sheep[i].check_collisions( tilesize, mov , map ); 
+            for (i=0; i<NUM_SHEEP; ++i){
                 
+                if( map->isGrass( pos_sheep.x, pos_sheep.y ) )
+                {
+                    pos_sheep = sheep[i].getPosition();
+                    sheep[i].eat();
+                    map->setGrass( pos_sheep.x, pos_sheep.y ); 
+                }
+                else
+                {
+                    mov=rand()%4; 
+                    sheep[i].move( mov ); /* create a random number for movement of sheeps */
+                    sheep[i].check_collisions( tilesize, mov , map ); 
+                }
+
                 if(sheep[i].getLife())  
-                    live_sheeps++;   /* counter of sheeps */
+                        live_sheeps++;   /* counter of sheeps */
 
                 Window.draw( sheep[i].getSprite() ); /* draw sheeps */
             }
 
-            for (int i=0; i<NUM_WOLF; ++i){
+            for (i=0; i<NUM_WOLF; ++i){
                 mov=rand()%4;
                 wolf[i].move( mov ); /* create a random number for movement of wolfs */
                 wolf[i].check_collisions( tilesize, mov , map ); 
@@ -118,5 +133,5 @@ int main()
         Window.display();
         
     } /* game loop */
-        
+    return 0;        
 } /* main */

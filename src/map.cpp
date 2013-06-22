@@ -2,54 +2,65 @@
 
 Map::Map()
 {
-
-}
-
-Map::~Map()
-{
-	delete map;
-}
-
-void Map::loadMap()
-{
-	map = new Tmx::Map();
+	this->map = new Tmx::Map();
+	
 	map->ParseFile( "../img/map.tmx" );
 	if( map->HasError() ) 
 	{
-		printf("error code: %d\n", map->GetErrorCode());
-		printf("error text: %s\n", map->GetErrorText().c_str());
+		std::cout << "error code: " << map->GetErrorCode() << "\n" <<std::endl;
+		std::cout << "error text: " << map->GetErrorText().c_str() << "\n" <<std::endl;
 	}
+	tileset = map->GetTileset(0);
+	tilesize= tileset->GetTileWidth();
+	
+	layer = map->GetLayer(0);
+
+	/*tileW = tileset->GetImage()->GetWidth() / tilesize;
+	*/
+}
+
+Map::Map(const Map &) /* copy constructor */
+{
+	
+}
+
+
+Map::~Map()
+{
+	delete this->map;
 }
 
 void Map::load()
 {
-	loadMap();
-	tileset = map->GetTileset(0);
+
 	//carga imagen del mapa especificado en el mapa.xml
-	//Image = loadFromFile( tileset->GetImage()->GetSource().c_str() );   
 	//if( !Image.loadFromFile( tileset->GetImage()->GetSource().c_str() ) )
 	if( !Image.loadFromFile( "../img/f10942.png" ) )
 	{
-		printf ("Error to load Image from TileSet \n");
+		std::cout << "Error to load Image from TileSet \n" <<std::endl;
 	}
-
-	tilesize= tileset->GetTileWidth();
-	tileW = tileset->GetImage()->GetWidth() / tilesize;
-	layer = map->GetLayer(0);
 	
-	limite_derecho = (layer->GetWidth() - 1) * tilesize - SCREEN_WIDTH/4;
-	limite_inferior = (layer->GetHeight() - 1) * tilesize - SCREEN_HEIGHT/4;
+	//limite_derecho = (layer->GetWidth() - 1) * tilesize - SCREEN_WIDTH/4;
+	//limite_inferior = (layer->GetHeight() - 1) * tilesize - SCREEN_HEIGHT/4;
 
 	background_texture.loadFromFile("../img/map.png");
 	background_sprite.setTexture(background_texture);
 }
 
-sf::Sprite Map::getBackground()
+sf::Sprite Map::getBackground() const 
 {
-	return background_sprite;
+	return this->background_sprite;
 	
 }
 
+void Map::setGrass()
+{
+	int j,i;
+	for(j=0; j<= SCREEN_HEIGHT / tilesize; ++j)
+		for (i=0; i<= SCREEN_WIDTH / tilesize; ++i)
+			this->grass[j][i]=true;
+		
+}
 
 /*
 void Map::imprimir(sf::RenderWindow &window)

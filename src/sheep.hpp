@@ -14,7 +14,9 @@ class Sheep{
 		void move( int mov );
 		void check_collisions( const int tilesize, int mov, Map *map );
 		sf::Vector2i getPosition();
-		inline bool getLife(){ return this-life; };
+		bool getLife();
+		void isLife();
+		void eat();
 	private:	
 		sf::Texture texture;
 		sf::Sprite sprite;
